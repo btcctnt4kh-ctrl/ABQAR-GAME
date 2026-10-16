@@ -1,1 +1,371 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1746a2">
+  <meta name="description" content="عبقر — اختبر ذكاءك، حل الألغاز، وافتح مراحل جديدة.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <title>عبقر | اختبر ذكاءك</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <header class="topbar">
+      <button class="icon-button" id="settingsButton"
+        aria-label="الإعدادات" title="الإعدادات">⚙️</button>
+
+      <div class="brand">
+        <div class="brand-mark">ع</div>
+        <div>
+          <h1>عَبْقَر</h1>
+          <p>رحلة العقل والذكاء</p>
+        </div>
+      </div>
+
+      <div class="points-badge">
+        <span>★</span>
+        <strong id="headerPoints">0</strong>
+      </div>
+    </header>
+
+    <main id="appMain">
+
+      <!-- الصفحة الرئيسية -->
+      <section class="screen active" id="homeScreen">
+        <div class="welcome-card">
+          <div class="welcome-copy">
+            <span class="eyebrow">مرحبًا بك في عالم الذكاء</span>
+            <h2>هل أنت مستعد<br>لتحدّي عقلك؟</h2>
+            <p>فكّر بذكاء، اكتشف الأنماط، وتجاوز التحديات.</p>
+            <button class="primary-button" id="continueButton">
+              <span>ابدأ التحدي</span>
+              <span>←</span>
+            </button>
+          </div>
+
+          <div class="mascot" id="homeMascot" aria-label="شخصية عبقر">
+            <div class="mascot-glow"></div>
+            <div class="mascot-face">🧠</div>
+            <span class="mascot-spark spark-one">✦</span>
+            <span class="mascot-spark spark-two">✧</span>
+          </div>
+
+          <div class="welcome-decoration decoration-one"></div>
+          <div class="welcome-decoration decoration-two"></div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>رحلتك مستمرة</h2>
+            <p>كل لغز يقرّبك من القمة</p>
+          </div>
+          <button class="text-button" data-screen="mapScreen">كل المراحل ←</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-icon blue-icon">◈</span>
+            <strong id="completedCount">0</strong>
+            <span>مراحل مكتملة</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-icon gold-icon">★</span>
+            <strong id="totalStars">0</strong>
+            <span>نجومك</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-icon green-icon">⚡</span>
+            <strong id="bestStreak">0</strong>
+            <span>أفضل سلسلة</span>
+          </article>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>اختر تحدّيك</h2>
+            <p>أنواع مختلفة من الألغاز</p>
+          </div>
+        </div>
+
+        <div class="category-grid">
+          <button class="category-card" data-category="logic">
+            <span class="category-icon logic-icon">♟</span>
+            <strong>المنطق</strong>
+            <small>حلّل واستنتج</small>
+          </button>
+
+          <button class="category-card" data-category="numbers">
+            <span class="category-icon numbers-icon">123</span>
+            <strong>الأرقام</strong>
+            <small>اكتشف النمط</small>
+          </button>
+
+          <button class="category-card" data-category="patterns">
+            <span class="category-icon patterns-icon">◈</span>
+            <strong>الأنماط</strong>
+            <small>ما العنصر التالي؟</small>
+          </button>
+
+          <button class="category-card" data-category="riddles">
+            <span class="category-icon riddles-icon">?</span>
+            <strong>الألغاز</strong>
+            <small>فكّر بطريقة مختلفة</small>
+          </button>
+        </div>
+      </section>
+
+      <!-- خريطة المراحل -->
+      <section class="screen" id="mapScreen">
+        <div class="page-heading">
+          <button class="back-button" data-screen="homeScreen">→</button>
+          <div>
+            <h2>خريطة العبقرية</h2>
+            <p>تقدّم مرحلة بعد مرحلة</p>
+          </div>
+        </div>
+
+        <div class="journey-banner">
+          <div>
+            <span class="eyebrow">رحلتك نحو القمة</span>
+            <h3 id="mapProgressTitle">بداية العبقرية</h3>
+            <p id="mapProgressText">ابدأ أول تحدٍّ لك الآن.</p>
+          </div>
+          <div class="journey-symbol">🏆</div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>المراحل</h2>
+            <p id="stageCountText">استكشف التحديات المتاحة</p>
+          </div>
+        </div>
+
+        <div class="stage-grid" id="stageGrid"></div>
+      </section>
+
+      <!-- شاشة اللعب -->
+      <section class="screen" id="gameScreen">
+        <div class="game-topbar">
+          <button class="back-button" id="exitGameButton"
+            aria-label="العودة إلى المراحل">→</button>
+
+          <div class="game-heading">
+            <strong id="stageLabel">المرحلة 1</strong>
+            <span id="puzzleType">لغز منطقي</span>
+          </div>
+
+          <div class="mini-points">
+            ★ <span id="gamePoints">0</span>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="gameProgressFill"></div>
+        </div>
+
+        <div class="puzzle-card">
+          <div class="puzzle-number" id="puzzleNumber">التحدي 01</div>
+
+          <div class="puzzle-illustration" id="puzzleIllustration"
+            aria-hidden="true">💡</div>
+
+          <h2 id="puzzleTitle">فكّر بذكاء!</h2>
+
+          <p class="puzzle-question" id="puzzleQuestion">
+            استعد لحل اللغز.
+          </p>
+
+          <div class="answer-area" id="answerArea">
+            <input
+              id="answerInput"
+              type="text"
+              autocomplete="off"
+              autocapitalize="off"
+              placeholder="اكتب إجابتك هنا..."
+              aria-label="إجابتك"
+            >
+          </div>
+
+          <div class="feedback-message" id="feedbackMessage"
+            role="status" aria-live="polite"></div>
+
+          <button class="primary-button answer-button" id="submitAnswer">
+            تحقّق من الإجابة
+          </button>
+
+          <button class="hint-button" id="hintButton">
+            <span>💡</span>
+            <span>أحتاج إلى تلميح</span>
+          </button>
+
+          <div class="hint-box" id="hintBox" hidden>
+            <strong>تلميح عبقر</strong>
+            <p id="hintText"></p>
+          </div>
+        </div>
+
+        <div class="game-footer">
+          <span>🧠 فكّر قبل أن تجيب</span>
+          <span id="attemptsText">حاول الوصول إلى الإجابة الصحيحة</span>
+        </div>
+      </section>
+
+      <!-- نتيجة المرحلة -->
+      <section class="screen" id="resultScreen">
+        <div class="result-card">
+          <div class="result-medal" id="resultMedal">🏆</div>
+          <span class="eyebrow" id="resultEyebrow">أحسنت!</span>
+          <h2 id="resultTitle">لقد أنهيت التحدي</h2>
+          <p id="resultMessage">استمر في رحلتك نحو العبقرية.</p>
+
+          <div class="result-stars" id="resultStars"
+            aria-label="النجوم المكتسبة">☆☆☆</div>
+
+          <div class="result-stats">
+            <div>
+              <strong id="earnedPoints">0</strong>
+              <span>نقطة مكتسبة</span>
+            </div>
+            <div>
+              <strong id="resultCorrect">0</strong>
+              <span>إجابة صحيحة</span>
+            </div>
+          </div>
+
+          <button class="primary-button" id="nextStageButton">
+            المرحلة التالية ←
+          </button>
+
+          <button class="secondary-button" id="retryButton">
+            أعد المحاولة
+          </button>
+
+          <button class="text-button result-home-button"
+            data-screen="homeScreen">
+            العودة للرئيسية
+          </button>
+        </div>
+      </section>
+
+      <!-- الإعدادات -->
+      <section class="screen" id="settingsScreen">
+        <div class="page-heading">
+          <button class="back-button" data-screen="homeScreen">→</button>
+          <div>
+            <h2>الإعدادات</h2>
+            <p>خصّص تجربتك</p>
+          </div>
+        </div>
+
+        <div class="settings-list">
+          <div class="setting-row">
+            <div>
+              <strong>المؤثرات الصوتية</strong>
+              <p>أصوات التفاعل داخل اللعبة</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="soundToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <strong>الاهتزاز</strong>
+              <p>اهتزاز خفيف عند التفاعل، إن كان مدعومًا</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="vibrationToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div>
+              <strong>تقليل الحركة</strong>
+              <p>تخفيف الحركات البصرية</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="motionToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-note">
+          <span>💾</span>
+          <p>يُحفظ تقدمك على هذا الجهاز. مسح بيانات المتصفح قد يؤدي إلى فقدانه.</p>
+        </div>
+
+        <button class="danger-button" id="resetProgressButton">
+          إعادة ضبط التقدم
+        </button>
+      </section>
+
+      <!-- الإنجازات -->
+      <section class="screen" id="achievementsScreen">
+        <div class="page-heading">
+          <button class="back-button" data-screen="homeScreen">→</button>
+          <div>
+            <h2>إنجازاتك</h2>
+            <p>كل خطوة تستحق التقدير</p>
+          </div>
+        </div>
+
+        <div class="achievement-summary">
+          <span>🏅</span>
+          <div>
+            <strong id="achievementCount">0 / 0</strong>
+            <p>إنجازات تم فتحها</p>
+          </div>
+        </div>
+
+        <div class="achievements-list" id="achievementsList"></div>
+      </section>
+
+    </main>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+      <button class="nav-item active" data-screen="homeScreen">
+        <span class="nav-icon">⌂</span>
+        <span>الرئيسية</span>
+      </button>
+
+      <button class="nav-item" data-screen="mapScreen">
+        <span class="nav-icon">▦</span>
+        <span>المراحل</span>
+      </button>
+
+      <button class="nav-item" data-screen="achievementsScreen">
+        <span class="nav-icon">🏅</span>
+        <span>الإنجازات</span>
+      </button>
+    </nav>
+
+    <footer class="app-footer">
+      <span>عَبْقَر</span>
+      <span>رحلتك تبدأ بفكرة</span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <div class="noscript-message">
+      تحتاج إلى تفعيل JavaScript لتشغيل لعبة عبقر.
+    </div>
+  </noscript>
+
+  <script src="game.js" defer></script>
+</body>
+</html>
+
