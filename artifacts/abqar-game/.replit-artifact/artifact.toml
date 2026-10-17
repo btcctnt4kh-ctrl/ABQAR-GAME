@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "عبقر ABQAR"
+description = "لعبة ألغاز عربية تفاعلية للجوال، تضم تحديات متنوعة ومراتب ونقاط ونجوم، مع حفظ التقدم محليًا وتشغيل مستقل بملفات HTML وCSS وJavaScript عادية."
+version = "1.0.0"
+id = "artifacts/abqar-game"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20994
+
+[services.development]
+run = "pnpm --filter @workspace/abqar-game run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abqar-game", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abqar-game/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20994"
+BASE_PATH = "/"
